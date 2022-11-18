@@ -37,9 +37,11 @@ Frontend:
 ### Działanie aplikacji
 - użytkownik ma możliwość przeglądania całej oferty sklepu, może wybrać także kategorię, np. telefony czy smartwatche
 - użytkownik może złożyć zamówienie na kilka produktów
+- użytkownik może zobaczyć historię swoich zamówień
 - użytkownik może wykupić usługę premium- darmowa dostawa, specjalne promocje
-- po weryfikacji zakupu można dodać komentarz (recenzję) po produkcie
+- po weryfikacji zakupu można dodać komentarz (recenzję) o produkcie
 - po złożeniu zamówienia, użytkownik otrzymuje maila ze szczegółami zamówienia
+- użytkownik może zapisać się do newslettera i otrzymywać powiadomienia o promocjach
 
 ***
 
