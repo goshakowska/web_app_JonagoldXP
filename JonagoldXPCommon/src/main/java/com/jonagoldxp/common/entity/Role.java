@@ -14,6 +14,18 @@ public class Role {
     @Column(length = 150, nullable = false)
     private String description;
 
+    public Role() { // required by hibernate
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public Integer getId() {
         return id;
     }
