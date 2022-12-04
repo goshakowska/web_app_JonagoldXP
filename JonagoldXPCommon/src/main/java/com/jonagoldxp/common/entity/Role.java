@@ -1,13 +1,17 @@
 package com.jonagoldxp.common.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity // indicates that this class is entity class
 @Table(name = "roles") // map with table in the database
 public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(length = 40, nullable = false, unique = true)
     private String name;
+
+    @Column(length = 150, nullable = false)
     private String description;
 
     public Integer getId() {
