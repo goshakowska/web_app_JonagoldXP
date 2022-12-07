@@ -50,4 +50,11 @@ public class UserRepositoryTests {
         Iterable<User> listUsers = repo.findAll(); // method that returns all users of the database
         listUsers.forEach(System.out::println);
     }
+
+    @Test
+    public void testGetUserById() {
+        User userChupa = repo.findById(1).get();
+        System.out.println(userChupa);
+        assertThat(userChupa).isNotNull();
+    }
 }
