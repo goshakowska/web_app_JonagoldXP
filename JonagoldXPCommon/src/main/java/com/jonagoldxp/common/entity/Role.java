@@ -69,4 +69,11 @@ public class Role {
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
     }
+
+    @Override
+    public String toString() {
+        return "Role{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
