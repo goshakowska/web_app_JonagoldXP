@@ -44,4 +44,10 @@ public class UserRepositoryTests {
         User savedUser = repo.save(userAlmighty);
         assertThat(savedUser.getId()).isGreaterThan(0);
     }
+
+    @Test
+    public void testListAllUsers() {
+        Iterable<User> listUsers = repo.findAll(); // method that returns all users of the database
+        listUsers.forEach(System.out::println);
+    }
 }
