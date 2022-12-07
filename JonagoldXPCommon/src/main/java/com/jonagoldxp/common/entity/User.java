@@ -30,6 +30,16 @@ public class User {
 
     private boolean enabled;
 
+    public User() {
+    } // pusty konstruktor - potrzebny do Hibernate
+
+    public User(String email, String password, String firstName, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @ManyToMany
     @JoinTable(
             name = "users_roles",
@@ -100,5 +110,9 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public void addRole(Role role) {
+        this.roles.add(role);
     }
 }
