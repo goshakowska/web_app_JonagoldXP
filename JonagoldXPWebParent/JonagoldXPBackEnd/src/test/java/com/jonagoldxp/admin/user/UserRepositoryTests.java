@@ -22,7 +22,7 @@ public class UserRepositoryTests {
     @Autowired
     private TestEntityManager entityManager; // class provided by DataJP for unit testing with repository
     @Test
-    public void testCreateFirstUser(){
+    public void testCreateUserWithOneRole(){
         Role roleAdmin = entityManager.find(Role.class, 1); // id=1 is Admin in our database
         User userExample = new User("example@mail.com", "example1234", "Chupa", "Cabra");
         userExample.addRole(roleAdmin);
@@ -30,5 +30,18 @@ public class UserRepositoryTests {
         User savedUser = repo.save(userExample);
         assertThat(savedUser.getId()).isGreaterThan(0);
 
+    }
+    @Test
+    public void testCreateNewUserWithManyRoles() {
+        User userAlmighty = new User("al@mighty.com", "thebest1", "Al", "Mighty");
+
+        Role roleEditor = new Role(3); // editor
+        Role roleAssistant = new Role(5); // assistant
+
+        userAlmighty.addRole(roleEditor);
+        userAlmighty.addRole(roleAssistant);
+
+        User savedUser = repo.save(userAlmighty);
+        assertThat(savedUser.getId()).isGreaterThan(0);
     }
 }
