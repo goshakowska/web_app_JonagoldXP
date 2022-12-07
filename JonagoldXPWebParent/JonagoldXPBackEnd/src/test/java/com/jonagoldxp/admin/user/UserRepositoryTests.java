@@ -80,4 +80,10 @@ public class UserRepositoryTests {
 
         repo.save(userAlmighty);
     }
+
+    @Test
+    public void testDeleteUser() {
+        Integer userId = 2;
+        repo.deleteById(userId);
+    }
 }
