@@ -21,6 +21,7 @@ public class UserRepositoryTests {
 
     @Autowired
     private TestEntityManager entityManager; // class provided by DataJP for unit testing with repository
+
     @Test
     public void testCreateUserWithOneRole(){
         Role roleAdmin = entityManager.find(Role.class, 1); // id=1 is Admin in our database
@@ -31,6 +32,7 @@ public class UserRepositoryTests {
         assertThat(savedUser.getId()).isGreaterThan(0);
 
     }
+
     @Test
     public void testCreateNewUserWithManyRoles() {
         User userAlmighty = new User("al@mighty.com", "thebest1", "Al", "Mighty");
@@ -56,5 +58,26 @@ public class UserRepositoryTests {
         User userChupa = repo.findById(1).get();
         System.out.println(userChupa);
         assertThat(userChupa).isNotNull();
+    }
+
+    @Test
+    public void testUpdateUserDetails() {
+        User userChupa = repo.findById(1).get();
+        userChupa.setEnabled(true);
+        userChupa.setEmail("angry_chupa@cabra.com");
+
+        repo.save(userChupa);
+    }
+
+    @Test
+    public void testUpdateUserRoles() {
+        User userAlmighty = repo.findById(2).get();
+        Role roleEditor = new Role(3);
+        Role roleSalesperson = new Role(2);
+
+        userAlmighty.getRoles().remove(roleEditor);
+        userAlmighty.getRoles().add(roleSalesperson);
+
+        repo.save(userAlmighty);
     }
 }
