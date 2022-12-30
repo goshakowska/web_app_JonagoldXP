@@ -60,59 +60,80 @@
   <div>
     <h2>Manage Users | Create New User</h2>
   </div>
-    <form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto;" th:object="${user}">
-      <div class="border border-secondary rounded p-3">
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">E-mail:</label>
-          <div class="col-sm-8">
-            <input type="email" class="form-control" th:field="*{email}" required minlength="8" maxlength="128">
-          </div>
-        </div>
-
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">First Name:</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" th:field="*{firstName}" required minlength="2" maxlength="45">
-          </div>
-        </div>
-
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">Last Name:</label>
-          <div class="col-sm-8">
-            <input type="text" class="form-control" th:field="*{lastName}" required minlength="2" maxlength="45">
-          </div>
-        </div>
-
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">Password:</label>
-          <div class="col-sm-8">
-            <input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20">
-          </div>
-        </div>
-
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">Roles: </label>
-          <div class="col-sm-8">
-            <th:block th:each="role: ${listRoles}">
-                <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" class="m-2">
-              - <small>[[ ${role.description} ]]</small>
-            </th:block>
-          </div>
-        </div>
-
-        <div class="form-group-row">
-          <label class="col-sm-4 col-form-label">Enabled:</label>
-          <div class="col-sm-8">
-            <input type="checkbox" th:field="*{enabled}">
-          </div>
-        </div>
-
-        <div>
-          <input type="submit" value="Save" class="btn btn-primary m-3">
-          <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+  <form th:action="@{/users/save}" method="post" style="max-width: 700px; margin: 0 auto;" th:object="${user}" onsubmit="return checkEmailUnique(this)">
+    <div class="border border-secondary rounded p-3">
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">E-mail:</label>
+        <div class="col-sm-8">
+          <input type="email" class="form-control" th:field="*{email}" required minlength="8" maxlength="128">
         </div>
       </div>
-    </form>
+
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">First Name:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" th:field="*{firstName}" required minlength="2" maxlength="45">
+        </div>
+      </div>
+
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Last Name:</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" th:field="*{lastName}" required minlength="2" maxlength="45">
+        </div>
+      </div>
+
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Password:</label>
+        <div class="col-sm-8">
+          <input type="password" class="form-control" th:field="*{password}" required minlength="8" maxlength="20">
+        </div>
+      </div>
+
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Roles: </label>
+        <div class="col-sm-8">
+          <th:block th:each="role: ${listRoles}">
+            <input type="checkbox" th:field="*{roles}" th:text="${role.name}" th:value="${role.id}" class="m-2">
+            - <small>[[ ${role.description} ]]</small>
+          </th:block>
+        </div>
+      </div>
+
+      <div class="form-group-row">
+        <label class="col-sm-4 col-form-label">Enabled:</label>
+        <div class="col-sm-8">
+          <input type="checkbox" th:field="*{enabled}">
+        </div>
+      </div>
+
+      <div>
+        <input type="submit" value="Save" class="btn btn-primary m-3">
+        <input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel">
+      </div>
+    </div>
+  </form>
+
+  <div class="modal fade text-center" id="modalDialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modalTitle">Warning</h4>
+          <button type="button" class="btn btn-close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <div class="modal-body">
+          <span id="modalBody"></span>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <div class="text-center">
     <p>JonagoldXP control panel- Copyright &copy; JonagoldXP</p>
   </div>
@@ -124,6 +145,36 @@
       window.location = "[[ @{/users} ]]";
     })
   });
+
+  function checkEmailUnique(form) {
+    url = "[[ @{/users/check_email} ]]";
+    userEmail = $("#email").val();
+    csrf = $("input[name = '_csrf']").val()
+    params = {email: userEmail, _csrf: csrf};
+
+    $("#modalDialog").modal();
+
+    $.post(url, params, function(response) {
+      if (response === "OK") {
+        form.submit();
+      }
+      else if (response === "Duplicated") {
+        showModalDialog("Warning", "User with email " + userEmail + " already in database");
+      }
+      else {
+        showModalDialog("Error", "Unknown response from server");
+      }
+    }).fail(function() {
+      showModalDialog("Error", "Error while connecting to the server");
+    });
+    return false;
+  }
+
+  function showModalDialog(title, message) {
+    $("#modalTitle").text(title);
+    $("#modalBody").text(message);
+    $("#modalDialog").modal();
+  }
 </script>
 </body>
 </html>
