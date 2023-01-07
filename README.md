@@ -45,5 +45,21 @@ Frontend:
 
 ***
 
+### Instalacja i uruchomienie aplikacji
+Ze względu na złożoność procesu deploymentu oraz ograniczonych możliwości podczas realizacji projektu aplikacja musi zostać uruchamiana lokalnie przez jej potencjalnego użytkownika. Co się z tym wiąże nie ma możliwości dostępu i aktualizacji danych pomiędzy różnymi urządzeniami bez uruchomienia lub edycji skryptu wypełniającego bazę danych odpowiednimi danymi.
+1. Pobranie repozytorium na własne urządzenie
+2. Utworzenie lokalnej bazy danych MySQL na jednym z wolnych portów komputera
+3. Edytowanie pliku konfiguracyjnego (application.properties) aby zgadzał się z utworzoną bazą danych 
+    - "server port"
+    - "datasource password"
+4. Uruchomienie skryptu w celu uzupełnienia bazy danych domyślnymi danymi
+5. Uruchomienie głównej aplikacji (nazwa pliku)
+6. Otworzenie dowolnej przeglądarki i wpisanie w wyszukiwarkę odpowiednio
+    - http://localhost:"server port"/JonagoldXPAdmin/ dla strony głównej aplikacji z widoku admina
+    - ... dla strony głównej aplikacji z widoku użytkowynika
+
+Uwaga port do, którego odwołuje się aplikacja musi być wolny podczas jej uruchomienia w przeciwnym wypadku aplikacja może nie działać poprawnie.
+***
+
 ### Przypisy
 [^1]: [Mobile VS Desktop Usage Statistics](https://www.zippia.com/advice/mobile-vs-desktop-usage-statistics/)
