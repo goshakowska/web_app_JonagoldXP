@@ -1,7 +1,6 @@
 package com.jonagoldxp.admin.user;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.list;
 
 import com.jonagoldxp.common.entity.Role;
 import org.junit.jupiter.api.Test;
