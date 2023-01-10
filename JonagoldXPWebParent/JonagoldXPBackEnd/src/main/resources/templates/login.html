@@ -10,9 +10,9 @@
 <body>
 <div class="container-fluid text-center">
     <div style="margin-top: 20px;">
-        <img alt="" src="/images/microsoft.png" width="350px" height="90px">
+        <img th:src="@{/images/niebieskie_logo_waskie.png}">
     </div>
-    <form action="logged_in" method="" id="login_admin_div">
+    <form action="@{/login}" method="post" id="login_admin_div">
         <div class="border border-secondary rounded p-3">
             <p>Access to JonagoldXP Control Panel</p>
             <p>
