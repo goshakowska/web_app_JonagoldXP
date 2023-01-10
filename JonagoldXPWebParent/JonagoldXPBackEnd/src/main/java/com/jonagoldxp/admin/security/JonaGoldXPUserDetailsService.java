@@ -15,7 +15,7 @@ public class JonaGoldXPUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) {
         User user = userRepo.getUserByEmail(email);
         if (user != null) {
-            return new JonaGoldXPUserDetails(user);
+            return new JonagoldXPUserDetails(user);
         }
         return null; // blad
     }

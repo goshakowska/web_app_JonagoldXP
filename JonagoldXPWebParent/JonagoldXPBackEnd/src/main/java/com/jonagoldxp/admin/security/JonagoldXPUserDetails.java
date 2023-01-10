@@ -13,12 +13,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JonaGoldXPUserDetails implements UserDetails {
+public class JonagoldXPUserDetails implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
     private User user;
 
-    public void JonaGoldXPUserDetails(User user){ // Czy to User jest tu potrzebne?
+    public JonagoldXPUserDetails(User user){ // Czy to User jest tu potrzebne?
         this.user = user;
     }
 
