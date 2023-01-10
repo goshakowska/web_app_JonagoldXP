@@ -37,6 +37,14 @@ public class Category {
         this.id = id;
     }
 
+    public static Category copyIdAndName(Category category){
+        Category copy = new Category();
+        copy.setId(category.id);
+        copy.setName(category.name);
+
+        return copy;
+    }
+
     public Category(String name) {
         this.name = name;
         this.alias = name;
