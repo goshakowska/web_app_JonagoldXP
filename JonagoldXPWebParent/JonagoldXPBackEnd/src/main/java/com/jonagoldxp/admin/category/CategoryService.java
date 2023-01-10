@@ -22,12 +22,16 @@ public class CategoryService {
 
         for (Category category : categoriesInDB){
             if (category.getParent() == null){
-                categoriesUsedInForm.add(new Category(category.getName()));
+                categoriesUsedInForm.add(Category.copyIdAndName(category));
 
                 getChildren(categoriesUsedInForm, category, 0);
             }
         }
         return categoriesUsedInForm;
+    }
+
+    public Category save(Category category){
+        return repo.save(category);
     }
 
     private void getChildren(List<Category> categories, Category parent, int subLevel){
