@@ -1,5 +1,6 @@
-package com.jonagoldxp.admin.user;
+package com.jonagoldxp.admin.user.controller;
 
+import com.jonagoldxp.admin.user.UserService;
 import com.jonagoldxp.common.entity.Role;
 import com.jonagoldxp.common.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
