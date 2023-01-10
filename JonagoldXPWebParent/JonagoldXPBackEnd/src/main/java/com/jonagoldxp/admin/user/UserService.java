@@ -1,6 +1,7 @@
 package com.jonagoldxp.admin.user;
 
 import com.jonagoldxp.common.entity.Role;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,10 @@ public class UserService {
     @Autowired
     private RoleRepository roleRepo;
 
+    public User getByEmail(String email){
+        return userRepo.getUserByEmail(email);
+    }
+
     public List<User> listAll() {
         return (List<User>)  userRepo.findAll();
 
@@ -28,5 +33,17 @@ public class UserService {
 
     public void save(User user) {
         userRepo.save(user);
+    }
+
+    public boolean isEmailUnique(Integer id, String email) {
+        User userByEmail = userRepo.getUserByEmail(email);
+
+        return userByEmail == null;
+        /////////////////////////////////////
+    }
+
+    public void delete(Integer id){
+        userRepo.deleteById(id);
+        ///////////////////////////////////
     }
 }
