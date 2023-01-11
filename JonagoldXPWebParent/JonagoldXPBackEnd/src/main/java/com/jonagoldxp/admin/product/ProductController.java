@@ -77,4 +77,15 @@ public class ProductController {
         }
         return defaultRedirectURL;
     }
+
+    @GetMapping("/products/{id}/enabled/{status}")
+    public String updateProductEnabledStatus(@PathVariable("id") Integer id,
+                                             @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+        productService.updateProductEnabledStatus(id, enabled);
+        String status = enabled ? "enabled" : "disabled";
+        String message = "The Product ID " + id + " has been " + status;
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return defaultRedirectURL;
+    }
 }

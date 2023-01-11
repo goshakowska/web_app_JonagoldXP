@@ -53,4 +53,8 @@ public class ProductService {
 
         repo.deleteById(id);
     }
+
+    public void updateProductEnabledStatus(Integer id, boolean enabled) {
+        repo.updateEnabledStatus(id, enabled);
+    }
 }
