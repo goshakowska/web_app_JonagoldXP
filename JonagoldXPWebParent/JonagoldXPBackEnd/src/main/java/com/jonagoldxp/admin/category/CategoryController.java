@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Controller
 public class CategoryController {
@@ -55,13 +56,29 @@ public class CategoryController {
     @GetMapping("/categories/edit/{id}")
     public String editCategory(@PathVariable(name = "id") Integer id, Model model,
                                RedirectAttributes ra) {
-        Category category = service.get(id);
-        List<Category> listCategories = service.listCategoriesUsedInForm();
+        try {
+            Category category = service.get(id);
+            List<Category> listCategories = service.listCategoriesUsedInForm();
 
-        model.addAttribute("category", category);
-        model.addAttribute("listCategories", listCategories);
-        model.addAttribute("pageTitle", "Edit Category (ID: " + id + ")");
+            model.addAttribute("category", category);
+            model.addAttribute("listCategories", listCategories);
+            model.addAttribute("pageTitle", "Edit Category (ID: " + id + ")");
 
-        return "categories/category_form";
+
+            return "categories/category_form";
+        } catch (NoSuchElementException ex){
+            ra.addFlashAttribute("message", ex.getMessage());
+            return "redirect:/categories";
+        }
+    }
+
+    @GetMapping("/categories/{id}/enabled/{status}")
+    public String updateCategoryEnabledStatus(@PathVariable("id") Integer id, @PathVariable("status") boolean enabled, RedirectAttributes redirectAttributes) {
+        service.updateCategoryEnabledStatus(id, enabled);
+        String status = enabled ? "enabled" : "disabled";
+        String message = "The category ID " + id + " has been " + status;
+        redirectAttributes.addFlashAttribute("message", message);
+
+        return "redirect:/categories";
     }
 }

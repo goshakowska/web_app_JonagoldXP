@@ -53,4 +53,8 @@ public class CategoryService {
             getChildren(categories, subCategory, nextSubLevel);
         }
     }
+
+    public void updateCategoryEnabledStatus(Integer id, boolean enabled) {
+        repo.updateEnabledStatus(id, enabled);
+    }
 }
