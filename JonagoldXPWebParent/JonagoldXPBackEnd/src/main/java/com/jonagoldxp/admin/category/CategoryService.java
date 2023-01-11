@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Service
@@ -32,6 +33,10 @@ public class CategoryService {
 
     public Category save(Category category){
         return repo.save(category);
+    }
+
+    public Category get(Integer id) throws NoSuchElementException {
+        return repo.findById(id).get();
     }
 
     private void getChildren(List<Category> categories, Category parent, int subLevel){
