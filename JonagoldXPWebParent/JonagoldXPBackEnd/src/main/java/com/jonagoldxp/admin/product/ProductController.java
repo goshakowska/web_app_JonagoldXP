@@ -1,16 +1,22 @@
 package com.jonagoldxp.admin.product;
 
+import com.jonagoldxp.admin.category.CategoryService;
 import com.jonagoldxp.common.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class ProductController {
-    @Autowired
-    private ProductService productService;
+    private String defaultRedirectURL = "redirect:/products/products";
+    @Autowired private ProductService productService;
+    @Autowired private CategoryService categoryService;
 
     @GetMapping("/products")
     public String listAll(Model model){
@@ -30,5 +36,13 @@ public class ProductController {
         model.addAttribute("pageTile", "Create New Product");
 
         return "products/product_form";
+    }
+
+    @PostMapping("/products/save")
+    public String saveProduct(Product product, RedirectAttributes ra
+    ) {
+        productService.save(product);
+        ra.addFlashAttribute("message", "The product has been saved successfully.");
+        return defaultRedirectURL;
     }
 }
