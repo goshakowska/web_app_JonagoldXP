@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ProductService {
@@ -33,5 +34,13 @@ public class ProductService {
         Product updatedProduct = repo.save(product);
 
         return updatedProduct;
+    }
+
+    public Product get(Integer id) throws NoSuchElementException {
+        try {
+            return repo.findById(id).get();
+        } catch (NoSuchElementException ex) {
+            throw new NoSuchElementException("Could not find any product with ID " + id);
+        }
     }
 }
