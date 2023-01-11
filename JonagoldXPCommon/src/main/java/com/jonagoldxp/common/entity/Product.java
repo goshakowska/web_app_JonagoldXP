@@ -192,4 +192,12 @@ public class Product {
         this.weight = weight;
     }
 
+    @Transient
+    public float getDiscountPrice() {
+        if (discountPercent > 0) {
+            return price * ((100 - discountPercent) / 100);
+        }
+        return this.price;
+    }
+
 }
