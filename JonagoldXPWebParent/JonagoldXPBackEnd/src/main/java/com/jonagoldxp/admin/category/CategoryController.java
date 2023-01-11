@@ -40,14 +40,8 @@ public class CategoryController {
 
     @PostMapping("/categories/save")
     public String saveCategory(Category category, @RequestParam("fileImage")MultipartFile multipartFile, RedirectAttributes ra){
-        if (!multipartFile.isEmpty()) {
-            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-            category.setImage(fileName);
-            Category savedCategory = service.save(category);
-            // TODO finish programming image upload
-        } else {
-            service.save(category);
-        }
+
+        service.save(category);
 
         ra.addFlashAttribute("message", "The category has been saved successfully.");
         return "redirect:/categories";
