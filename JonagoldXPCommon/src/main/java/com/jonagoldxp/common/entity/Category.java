@@ -18,9 +18,6 @@ public class Category {
     @Column(length = 64, nullable = false, unique = true)
     private String alias;
 
-    @Column(length = 128, nullable = false)
-    private String image;
-
     private boolean enabled;
 
     @OneToOne
@@ -48,14 +45,12 @@ public class Category {
     public Category(String name) {
         this.name = name;
         this.alias = name;
-        this.image = "default.png";
     }
 
     public Category(String name, Category parent) {
         this.name = name;
         this.alias = name;
         this.parent = parent;
-        this.image = "default.png";
     }
 
     public Integer getId() {
@@ -80,14 +75,6 @@ public class Category {
 
     public void setAlias(String alias) {
         this.alias = alias;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
     }
 
     public boolean isEnabled() {
