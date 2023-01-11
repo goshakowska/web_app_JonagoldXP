@@ -11,8 +11,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.email = :email")
-    public User getUserByEmail(@Param("email")String email);
+    User getUserByEmail(@Param("email")String email);
 
-    @Query("SELECT u FROM User u WHERE concat(u.id, ' ', u.email, ' ', u.firstName, ' ', u.lastName) LIKE%?1%")
-    public Page<User> findAll(String keyword, Pageable pageable);
+    @Query(value = "SELECT u FROM User u WHERE concat(u.id, ' ', u.email, ' ', u.firstName, ' ', u.lastName) LIKE%?1%", nativeQuery = true)
+    Page<User> findAll(String keyword, Pageable pageable);
 }
