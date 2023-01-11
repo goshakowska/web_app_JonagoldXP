@@ -43,4 +43,14 @@ public class ProductService {
             throw new NoSuchElementException("Could not find any product with ID " + id);
         }
     }
+
+    public void delete(Integer id) throws NoSuchElementException {
+        Long countById = repo.countById(id);
+
+        if (countById == null || countById == 0) {
+            throw new NoSuchElementException("Could not find any product with ID " + id);
+        }
+
+        repo.deleteById(id);
+    }
 }
