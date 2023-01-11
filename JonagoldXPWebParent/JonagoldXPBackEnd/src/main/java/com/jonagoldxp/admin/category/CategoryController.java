@@ -81,4 +81,18 @@ public class CategoryController {
 
         return "redirect:/categories";
     }
+
+    @GetMapping("/categories/delete/{id}")
+    public String deleteCategory(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {
+        try {
+            service.delete(id);
+            // TODO implement image removing
+            redirectAttributes.addFlashAttribute("message",
+                    "The category ID " + id + " has been deleted successfully");
+        } catch (NoSuchElementException ex) {
+            redirectAttributes.addFlashAttribute("message", ex.getMessage());
+        }
+
+        return "redirect:/categories";
+    }
 }
