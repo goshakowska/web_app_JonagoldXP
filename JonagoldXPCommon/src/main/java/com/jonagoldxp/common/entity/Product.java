@@ -50,6 +50,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product() {
+    }
     public Category getCategory() {
         return category;
     }
@@ -184,6 +190,14 @@ public class Product {
 
     public void setWeight(float weight) {
         this.weight = weight;
+    }
+
+    @Transient
+    public float getDiscountPrice() {
+        if (discountPercent > 0) {
+            return price * ((100 - discountPercent) / 100);
+        }
+        return this.price;
     }
 
 }
