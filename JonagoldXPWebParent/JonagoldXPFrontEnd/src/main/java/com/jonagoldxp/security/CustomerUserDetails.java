@@ -1,6 +1,8 @@
 package com.jonagoldxp.security;
 
 import com.jonagoldxp.common.entity.Customer;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
@@ -34,6 +36,11 @@ public class CustomerUserDetails implements UserDetails {
     @Override
     public boolean isAccountNonLocked() {
         return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
     }
 
     @Override
