@@ -50,6 +50,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product() {
+    }
     public Category getCategory() {
         return category;
     }
