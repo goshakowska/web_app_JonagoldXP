@@ -9,10 +9,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends SearchRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.email = :email")
-    User getUserByEmail(@Param("email")String email);
+    public User getUserByEmail(@Param("email")String email);
+    public Long countById(Integer id);
 
     @Query(value = "SELECT u FROM User u WHERE concat(u.id, ' ', u.email, ' ', u.firstName, ' ', u.lastName) LIKE%?1%", nativeQuery = true)
-    Page<User> findAll(String keyword, Pageable pageable);
+    public Page<User> findAll(String keyword, Pageable pageable);
+
+    @Query("UPDATE User u SET u.enabled = ?2 WHERE u.id = ?1")
+    @Modifying
+    public void updateEnabledStatus(Integer id, boolean enabled);
 }
