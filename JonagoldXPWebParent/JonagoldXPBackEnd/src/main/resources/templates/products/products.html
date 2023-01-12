@@ -55,10 +55,7 @@
 					
 					<th>Main Image</th>
 					<th th:replace="fragments :: column_link('name', 'Product Name', 'none')" />
-					
-					<th class="hideable-column"> 
-					<th th:replace="fragments :: column_link('brand', 'Brand', 'tag')" />
-					</th>
+
 					
 					<th class="hideable-column">
 					<th th:replace="fragments :: column_link('category', 'Category', 'tag')" />
@@ -80,11 +77,9 @@
 					<td>
 						<a class="link-detail"
 							th:href="@{'/products/detail/' + ${product.id}}"
-							th:title="${product.name}"
-							>[[${product.shortName}]]</a>					
+							th:title="${product.name}"</a>
 						
 					</td>
-					<td class="hideable-column">[[${product.brand.name}]]</td>
 					<td class="hideable-column">[[${product.category.name}]]</td>
 					
 					<th:block sec:authorize="hasAnyAuthority('Admin', 'Editor')">
