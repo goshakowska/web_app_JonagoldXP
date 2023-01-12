@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
-    public static final int USERS_PER_PAGE = 4;
 
     @Autowired
     private UserRepository userRepo;
@@ -30,10 +29,12 @@ public class UserService {
         return (List<User>)  userRepo.findAll(Sort.by("firstName").ascending());
 
     }
-
-    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
-        helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
+    public User get(Integer id) {
+            return userRepo.findById(id).get();
     }
+//    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+//        helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
+//    }
 
     public List<Role> listRoles() {
         return (List<Role>) roleRepo.findAll();
@@ -46,12 +47,27 @@ public class UserService {
     public boolean isEmailUnique(Integer id, String email) {
         User userByEmail = userRepo.getUserByEmail(email);
 
-        return userByEmail == null;
-        /////////////////////////////////////
+        if (userByEmail == null) return true;
+
+        boolean isCreatingNew = (id == null);
+
+        if (isCreatingNew) {
+            if (userByEmail != null) return false;
+        } else {
+            if (userByEmail.getId() != id) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    public void delete(Integer id){
+
+    public void delete(Integer id) {
         userRepo.deleteById(id);
-        ///////////////////////////////////
+    }
+
+    public void updateUserEnabledStatus(Integer id, boolean enabled) {
+        userRepo.updateEnabledStatus(id, enabled);
     }
 }
