@@ -86,4 +86,12 @@ public class UserRepositoryTests {
         Integer userId = 2;
         repo.deleteById(userId);
     }
+
+    @Test
+    public void testCountById() {
+        Integer id = 100;
+        Long countById = repo.countById(id);
+
+        assertThat(countById).isNotNull().isGreaterThan(-10);
+    }
 }
