@@ -20,11 +20,15 @@ public class Category {
 
     private boolean enabled;
 
+    @Column(name = "all_parent_ids", length = 256, nullable = true)
+    private String allParentIDs;
+
     @OneToOne
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    @OneToMany(mappedBy = "parent")
+    @OneToMany
+    @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
     public Category(){
@@ -40,6 +44,14 @@ public class Category {
         copy.setName(category.name);
 
         return copy;
+    }
+
+    public static Category copyIdAndName(Integer id, String name) {
+        Category copyCategory = new Category();
+        copyCategory.setId(id);
+        copyCategory.setName(name);
+
+        return copyCategory;
     }
 
     public Category(String name) {
@@ -115,5 +127,13 @@ public class Category {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public String getAllParentIDs() {
+        return allParentIDs;
+    }
+
+    public void setAllParentIDs(String allParentIDs) {
+        this.allParentIDs = allParentIDs;
     }
 }
