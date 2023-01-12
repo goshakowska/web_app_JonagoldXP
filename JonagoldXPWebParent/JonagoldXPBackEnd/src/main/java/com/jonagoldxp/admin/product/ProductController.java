@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class ProductController {
-    private String defaultRedirectURL = "redirect:/products/products";
+    private final String defaultRedirectURL = "redirect:/products/products";
     @Autowired private ProductService productService;
     @Autowired private CategoryService categoryService;
 
