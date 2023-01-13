@@ -1,6 +1,6 @@
 package com.jonagoldxp.admin.user;
 
-import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.jonagoldxp.common.entity.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +62,24 @@ public class UserService {
         return true;
     }
 
+//    public User updateAccount(User userInForm) {
+//        User userInDB = userRepo.findById(userInForm.getId()).get();
+//
+//        if (!userInForm.getPassword().isEmpty()) {
+//            userInDB.setPassword(userInForm.getPassword());
+//            encodePassword(userInDB);
+//        }
+//
+//        userInDB.setFirstName(userInForm.getFirstName());
+//        userInDB.setLastName(userInForm.getLastName());
+//
+//        return userRepo.save(userInDB);
+//    }
+
+//    private void encodePassword(User user) {
+//        String encodedPassword = passwordEncoder.encode(user.getPassword());
+//        user.setPassword(encodedPassword);
+//    }
 
     public void delete(Integer id) {
         userRepo.deleteById(id);

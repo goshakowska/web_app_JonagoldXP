@@ -1,12 +1,18 @@
 package com.jonagoldxp.customer;
 
 import com.jonagoldxp.common.entity.Customer;
+import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+
+import java.util.Date;
 
 import java.util.Date;
 
 @Service
+@Transactional
 public class CustomerService {
     @Autowired private CustomerRepository customerRepo;
 

@@ -3,7 +3,7 @@ package com.jonagoldxp.admin.security;
 import com.jonagoldxp.common.entity.Role;
 import com.jonagoldxp.common.entity.User;
 
-import java.io.Serial;
+//import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +14,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 public class JonagoldXPUserDetails implements UserDetails {
-    @Serial
     private static final long serialVersionUID = 1L;
     private User user;
 
@@ -77,7 +76,6 @@ public class JonagoldXPUserDetails implements UserDetails {
     }
 
     public boolean hasRole(String roleName){
-        return false;
-//        return user.hasRole(roleName);
+        return user.hasRole(roleName);
     }
 }
