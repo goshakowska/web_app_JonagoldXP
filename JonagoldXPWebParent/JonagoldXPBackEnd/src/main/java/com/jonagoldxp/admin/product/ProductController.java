@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class ProductController {
-    private final String defaultRedirectURL = "redirect:/products/products";
+    private final String defaultRedirectURL = "redirect:/products";
     @Autowired private ProductService productService;
     @Autowired private CategoryService categoryService;
 
@@ -44,7 +44,7 @@ public class ProductController {
     ) {
         productService.save(product);
         ra.addFlashAttribute("message", "The product has been saved successfully.");
-        return defaultRedirectURL;
+        return "redirect:/products";
     }
 
     @GetMapping("/products/edit/{id}")
