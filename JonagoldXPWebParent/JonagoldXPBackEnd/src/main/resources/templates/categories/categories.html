@@ -14,11 +14,10 @@
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th>Category Image</th>
-                <th th:replace="fragments :: column_link('name', 'Category Name', 'none')" />
+                <th>Name</th>
                 <th class="hideable-column">Alias</th>
                 <th>Enabled</th>
-                <th></th>
+                <th>Edit/Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -31,32 +30,12 @@
                 </td>
                 <td>
                     <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
-                    &nbsp;
-                    <div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})" />
+                    <a th:href="@{'/categories/delete/' + ${cat.id}}" class="delete_entity">Delete</a>
                 </td>
             </tr>
             </tbody>
 
         </table>
-    </div>
-
-    <div class="less-details">
-        <div th:each="cat : ${listCategories}" class="row m-1">
-            <div class="col-8">
-                <div>[[${cat.name}]]</div>
-                <div class="mt-2">
-                    <div th:replace="fragments :: status(${cat.enabled}, 'category', '/categories/' + ${cat.id})" />
-                    <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
-                    <div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})" />
-                </div>
-            </div>
-            <div>&nbsp;</div>
-        </div>
-    </div>
-
-    <div th:if="${keyword != null}" class="text-center">
-        <span>Search result does not show categories in hierarchical form</span>
-        <div th:replace="fragments :: pagination('categories')"></div>
     </div>
 </div>
 

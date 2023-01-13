@@ -1,6 +1,7 @@
 package com.jonagoldxp.admin.category;
 
 import com.jonagoldxp.common.entity.Category;
+import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
     public Category findByAlias(String alias);
     @Query("UPDATE Category c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying
+    @Transactional
     void updateEnabledStatus(Integer id, boolean enabled);
 
     Long countById(Integer id);

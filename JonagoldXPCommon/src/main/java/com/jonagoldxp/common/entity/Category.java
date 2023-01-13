@@ -27,11 +27,16 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category parent;
 
-    @OneToMany
+    @OneToMany(mappedBy = "parent")
     @OrderBy("name asc")
     private Set<Category> children = new HashSet<>();
 
     public Category(){
+    }
+
+    public Category(Integer id, String name) {
+        this.name = name;
+        this.alias = name;
     }
 
     public Category(Integer id){
