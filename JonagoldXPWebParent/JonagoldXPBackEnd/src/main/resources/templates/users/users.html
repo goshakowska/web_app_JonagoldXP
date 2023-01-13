@@ -15,22 +15,13 @@
     <table class="table table-bordered table-striped table-hover table-responsive-xl">
       <thead class="thead-dark">
       <tr>
-        <th class="hideable-column">
-        <th th:replace="fragments :: column_link('id', 'User ID', 'tag')" />
-        </th>
-
-        <th>Photos</th>
-
-        <th class="hideable-column">
-        <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')" />
-        </th>
-
-        <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')" />
-        <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')" />
-
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>First Name</th>
+        <th>Last Name</th>
         <th>Roles</th>
-        <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')" />
-        <th></th>
+        <th>Enabled</th>
+        <th>Edit/delete</th>
       </tr>
       </thead>
       <tbody>
@@ -48,7 +39,8 @@
         <td>
           <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})" />
           &nbsp;&nbsp;
-          <div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)" />
+<!--          <div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)" />-->
+          <a th:href="@{'/users/delete/' + ${user.id}}" class="delete_entity">Delete</a>
         </td>
       </tr>
       </tbody>

@@ -63,6 +63,6 @@ public class CustomerController {
     public String deleteCustomer(@PathVariable Integer id, RedirectAttributes ra) {
         service.delete(id);
         ra.addFlashAttribute("message", "The customer ID " + id + " has been deleted successfully.");
-        return "redirect:/customers/customers";
+        return "redirect:/customers";
     }
 }
