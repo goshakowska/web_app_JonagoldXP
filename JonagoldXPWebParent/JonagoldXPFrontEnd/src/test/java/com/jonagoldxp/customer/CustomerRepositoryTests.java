@@ -25,11 +25,8 @@ public class CustomerRepositoryTests {
 
     @Test
     public void testCreateCustomer1() {
-        Integer countryId = 234;
-//        Country country = entityManager.find(Country.class, countryId);
 
         Customer customer = new Customer();
-//        customer.setCountry(country);
         customer.setFirstName("David");
         customer.setLastName("Suchet");
         customer.setPassword("HerculesPoirot198");
@@ -48,20 +45,21 @@ public class CustomerRepositoryTests {
 
     @Test
     public void testCreateCustomer2() {
-        Integer countryId = 107;
-//        Country country = entityManager.find(Country.class, countryId);
+
+
 
         Customer customer = new Customer();
-//        customer.setCountry(country);
-        customer.setFirstName("Agatha");
-        customer.setLastName("Christie");
-        customer.setPassword("ABCMurder");
-        customer.setEmail("agatha@christie.com");
-        customer.setPhoneNumber("987-654-321");
-        customer.setAddressLine1("10A Random Street");
+        customer.setFirstName("James");
+        customer.setLastName("Bond");
+        customer.setPassword("imbondjamesbond");
+        customer.setEmail("black@suits.com");
+        customer.setPhoneNumber("000-000-777");
+        customer.setAddressLine1("Some Street");
+        customer.setAddressLine2("007JB");
         customer.setCity("London");
-        customer.setPostalCode("54321");
+        customer.setPostalCode("00-7");
         customer.setCreatedTime(new Date());
+        customer.setVerificationCode("007007");
 
         Customer savedCustomer = repo.save(customer);
 
@@ -120,7 +118,7 @@ public class CustomerRepositoryTests {
 
     @Test
     public void testFindByVerificationCode() {
-        String code = "code_123";
+        String code = "007007";
         Customer customer = repo.findByVerificationCode(code);
 
         assertThat(customer).isNotNull();

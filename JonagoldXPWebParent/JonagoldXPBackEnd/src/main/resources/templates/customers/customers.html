@@ -15,22 +15,31 @@
         <table class="table table-bordered table-striped table-hover table-responsive-xl">
             <thead class="thead-dark">
             <tr>
-                <th class="hideable-column">
-                <th th:replace="fragments :: column_link('id', 'Customer ID', 'tag')" />
-                </th>
 
-                <th>Photos</th>
+                <th>Customer ID</th>
+<!--                <th class="hideable-column">-->
+<!--                <th th:replace="fragments :: column_link('id', 'Customer ID', 'none')" />-->
+<!--                </th>-->
 
-                <th class="hideable-column">
-                <th th:replace="fragments :: column_link('email', 'E-mail', 'tag')" />
-                </th>
+                <th>Email</th>
+<!--                <th class="hideable-column">-->
+<!--                <th th:replace="fragments :: column_link('email', 'E-mail', 'none')" />-->
+<!--                </th>-->
 
-                <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')" />
-                <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')" />
+                <th>First Name</th>
+<!--                <th class="hideable-column">-->
+<!--                <th th:replace="fragments :: column_link('firstName', 'First Name', 'none')" />-->
+<!--                </th>-->
 
-                <th>Roles</th>
-                <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')" />
-                <th></th>
+                <th>Last Name</th>
+<!--                <th class="hideable-column">-->
+<!--                <th th:replace="fragments :: column_link('lastName', 'Last Name', 'none')" />-->
+<!--                </th>-->
+
+                <th>Enabled</th>
+<!--                <th class="hideable-column">-->
+<!--                <th th:replace="fragments :: column_link('enabled', 'Enabled', 'none')" />-->
+<!--                </th>-->
             </tr>
             </thead>
             <tbody>
