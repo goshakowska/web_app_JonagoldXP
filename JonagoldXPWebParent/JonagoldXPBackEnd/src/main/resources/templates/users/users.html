@@ -40,7 +40,7 @@
           <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})" />
           &nbsp;&nbsp;
 <!--          <div th:replace="fragments :: delete('user', ${user.id}, '/users/delete/' + ${user.id}, true)" />-->
-          <a th:href="@{'/users/delete/' + ${user.id}}">Delete</a>
+          <a th:href="@{'/users/delete/' + ${user.id}}" class="delete_entity">Delete</a>
         </td>
       </tr>
       </tbody>
