@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: page_head('Users - JonagoldXP Admin', 'none')" />
+<body>
+<div class="container-fluid">
+  <div th:replace="navigation :: menu"></div>
+  <div>
+    <h2>Manage Users</h2>
+    <a th:href="@{/users/new}" class="fas fa-user-plus fa-2x icon-dark mr-2"></a>
+  </div>
+
+  <div th:replace="fragments :: search_form_and_message" />
+
+  <div class="full-details">
+    <table class="table table-bordered table-striped table-hover table-responsive-xl">
+      <thead class="thead-dark">
+      <tr>
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Roles</th>
+        <th>Enabled</th>
+        <th>Edit/delete</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${listUsers}">
+        <td class="hideable-column">[[${user.id}]]</td>
+        <td class="hideable-column">[[${user.email}]]</td>
+        <td>[[${user.firstName}]]</td>
+        <td>[[${user.lastName}]]</td>
+        <td>[[${user.roles}]]</td>
+
+        <td>
+          <div th:replace="fragments :: status(${user.enabled}, 'user', '/users/' + ${user.id})" />
+        </td>
+
+        <td>
+          <div th:replace="fragments :: edit('user', '/users/edit/' + ${user.id})" />
+          <a th:href="@{'/users/delete/' + ${user.id}}" class="delete_entity">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:replace="modal_fragments :: confirm_modal" />
+  <div th:replace="fragments :: footer"></div>
+
+</div>
+<script th:src="@{/js/common_list.js}"></script>
+<script type="text/javascript">
+  moduleURL = "[[@{/users}]]";
+
+  $(document).ready(function() {
+    $(".link-delete").on("click", function(e) {
+      e.preventDefault();
+      showDeleteConfirmModal($(this), 'user');
+    });
+  });
+</script>
+</body>
+</html>

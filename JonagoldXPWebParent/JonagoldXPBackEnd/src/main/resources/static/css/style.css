@@ -1,4 +1,28 @@
-#login_admin_div{
+#login_admin_div {
     max-width: 350px;
     margin: 10px auto;
+}
+
+/* unvisited link */
+a.delete_entity:link {
+    color: mediumblue !important;
+    text-decoration: none !important;
+}
+
+/* visited link */
+a.delete_entity:visited {
+    color: mediumblue !important;
+    text-decoration: none;
+}
+
+/* mouse over link */
+a.delete_entity:hover {
+    color: mediumblue !important;
+    text-decoration: none;
+}
+
+/* selected link */
+a.delete_entity:active {
+    color: mediumblue !important;
+    text-decoration: none;
 }

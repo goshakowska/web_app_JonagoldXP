@@ -46,11 +46,29 @@ public class Product {
     private float height;
     private float weight;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    public Product(Integer id) {
+        this.id = id;
+    }
+
+    public Product() {
+    }
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public Integer getId() {
         return id;
     }
 
-    public void setID(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -174,6 +192,12 @@ public class Product {
         this.weight = weight;
     }
 
-    //TODO Category entity
-    //TODO Brand entity
+    @Transient
+    public float getDiscountPrice() {
+        if (discountPercent > 0) {
+            return price * ((100 - discountPercent) / 100);
+        }
+        return this.price;
+    }
+
 }
