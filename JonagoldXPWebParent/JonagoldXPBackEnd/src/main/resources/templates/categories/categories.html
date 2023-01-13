@@ -14,7 +14,7 @@
             <thead class="thead-dark">
             <tr>
                 <th>ID</th>
-                <th th:replace="fragments :: column_link('name', 'Category Name', 'none')" />
+                <th>Name</th>
                 <th class="hideable-column">Alias</th>
                 <th>Enabled</th>
                 <th></th>
@@ -30,10 +30,11 @@
                 </td>
                 <td>
                     <div th:replace="fragments :: edit('category', '/categories/edit/' + ${cat.id})" />
-                    <div th:replace="fragments :: delete('category', ${cat.id}, '/categories/delete/' + ${cat.id}, ${!cat.hasChildren})" />
+                    <a th:href="@{'/categories/delete/' + ${cat.id}}">Delete</a>
                 </td>
             </tr>
             </tbody>
+
         </table>
     </div>
 

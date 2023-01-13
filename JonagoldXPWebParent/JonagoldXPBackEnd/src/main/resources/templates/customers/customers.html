@@ -19,6 +19,12 @@
                 <th>Email</th>
                 <th>First Name</th>
                 <th>Last Name</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+                <th>City</th>
+                <th>Postal code</th>
+                <th>Created Time</th>
+
                 <th>Enabled</th>
                 <th>Edit/Delete</th>
             </tr>
@@ -29,6 +35,12 @@
                 <td class="hideable-column">[[${customer.email}]]</td>
                 <td>[[${customer.firstName}]]</td>
                 <td>[[${customer.lastName}]]</td>
+                <td>[[${customer.addressLine1}]]</td>
+                <td>[[${customer.addressLine2}]]</td>
+                <td>[[${customer.city}]]</td>
+                <td>[[${customer.postalCode}]]</td>
+                <td>[[${customer.createdTime}]]</td>
+
 
                 <td>
                     <div th:replace="fragments :: status(${customer.enabled}, 'customer', '/customers/' + ${customer.id})" />
