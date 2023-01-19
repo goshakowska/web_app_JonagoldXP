@@ -58,15 +58,7 @@ public class CategoryService {
 
         for (Category rootCategory : rootCategories) {
             hierarchicalCategories.add(Category.copyFull(rootCategory));
-
-            Set<Category> children = sortSubCategories(rootCategory.getChildren(), sortDir);
-
-            for (Category subCategory : children) {
-                String name = "--" + subCategory.getName();
-                hierarchicalCategories.add(Category.copyFull(subCategory, name));
-
-                getSubCategories(hierarchicalCategories, subCategory, 1, sortDir);
-            }
+            getSubCategories(hierarchicalCategories, rootCategory, 0, sortDir);
         }
 
         return hierarchicalCategories;
@@ -100,7 +92,7 @@ public class CategoryService {
             if (category.getParent() == null){
                 categoriesUsedInForm.add(Category.copyIdAndName(category));
 
-                getChildren(categoriesUsedInForm, category, 0);
+                getSubCategories(categoriesUsedInForm, category, 0);
             }
         }
         return categoriesUsedInForm;
@@ -114,7 +106,7 @@ public class CategoryService {
         return repo.findById(id).get();
     }
 
-    private void getChildren(List<Category> categories, Category parent, int subLevel){
+    private void getSubCategories(List<Category> categories, Category parent, int subLevel){
         int nextSubLevel = subLevel + 1;
         Set<Category> children = parent.getChildren();
 
@@ -125,7 +117,7 @@ public class CategoryService {
             }
             categories.add(new Category(pronoun + subCategory.getName()));
 
-            getChildren(categories, subCategory, nextSubLevel);
+            getSubCategories(categories, subCategory, nextSubLevel);
         }
     }
 
