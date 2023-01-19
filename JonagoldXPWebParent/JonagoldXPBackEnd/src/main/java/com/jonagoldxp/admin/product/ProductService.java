@@ -1,7 +1,10 @@
 package com.jonagoldxp.admin.product;
 
+import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
 import com.jonagoldxp.common.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -10,11 +13,23 @@ import java.util.NoSuchElementException;
 
 @Service
 public class ProductService {
+    public static final int PRODUCTS_PER_PAGE = 4;
     @Autowired
     private ProductRepository repo;
 
     public List<Product> listAll(){
         return repo.findAll();
+    }
+
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, PRODUCTS_PER_PAGE, repo);
+    }
+
+    public void searchProducts(int pageNum, PagingAndSortingHelper helper) {
+        Pageable pageable = helper.createPageable(PRODUCTS_PER_PAGE, pageNum);
+        String keyword = helper.getKeyword();
+        Page<Product> page = repo.searchProductsByName(keyword, pageable);
+        helper.updateModelAttributes(pageNum, page);
     }
 
     public Product save(Product product) {
