@@ -1,5 +1,7 @@
 package com.jonagoldxp.admin.user.controller;
 
+import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
+import com.jonagoldxp.admin.paging.PagingAndSortingParam;
 import com.jonagoldxp.admin.user.UserService;
 import com.jonagoldxp.common.entity.Role;
 import com.jonagoldxp.common.entity.User;
@@ -15,14 +17,22 @@ import java.util.List;
 
 @Controller
 public class UserController {
+    private String defaultRedirectURL = "redirect:/users/page/1?sortField=firstName&sortDir=asc";
     @Autowired
     private UserService service;
 
     @GetMapping("/users")
-    public String listAll(Model model) {
-        List<User> listUsers = service.listAll();
-        model.addAttribute("listUsers", listUsers);
-        return "/users/users";
+    public String listFirstPage() {
+        return defaultRedirectURL;
+    }
+
+    @GetMapping("/users/page/{pageNum}")
+    public String listByPage(
+            @PagingAndSortingParam(listName = "listUsers", moduleURL = "/users") PagingAndSortingHelper helper,
+            @PathVariable(name = "pageNum") int pageNum) {
+        service.listByPage(pageNum, helper);
+
+        return "users/users";
     }
 
     @GetMapping("/users/new")
@@ -61,7 +71,7 @@ public class UserController {
 
     @GetMapping("/users/delete/{id}")
     public String deleteUser(@PathVariable(name = "id") Integer id,
-//                             Model model,
+                             Model model,
                              RedirectAttributes redirectAttributes) {
             service.delete(id);
 
