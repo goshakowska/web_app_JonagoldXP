@@ -59,6 +59,24 @@ public class Category {
         return copyCategory;
     }
 
+    public static Category copyFull(Category category) {
+        Category copyCategory = new Category();
+        copyCategory.setId(category.getId());
+        copyCategory.setName(category.getName());
+        copyCategory.setAlias(category.getAlias());
+        copyCategory.setEnabled(category.isEnabled());
+        copyCategory.setHasChildren(category.getChildren().size() > 0);
+
+        return copyCategory;
+    }
+
+    public static Category copyFull(Category category, String name) {
+        Category copyCategory = Category.copyFull(category);
+        copyCategory.setName(name);
+
+        return copyCategory;
+    }
+
     public Category(String name) {
         this.name = name;
         this.alias = name;

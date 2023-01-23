@@ -56,6 +56,16 @@ public class Product {
 
     public Product() {
     }
+
+    public Product(Integer id, String name){
+        this.id = id;
+        this.name = name;
+    }
+
+    public Product(String name){
+        this.name = name;
+    }
+
     public Category getCategory() {
         return category;
     }

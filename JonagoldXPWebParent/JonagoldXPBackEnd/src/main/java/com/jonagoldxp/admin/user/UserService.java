@@ -1,6 +1,6 @@
 package com.jonagoldxp.admin.user;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
 import com.jonagoldxp.common.entity.Role;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 @Transactional
 public class UserService {
+    public static final int USERS_PER_PAGE = 4;
 
     @Autowired
     private UserRepository userRepo;
@@ -29,19 +30,20 @@ public class UserService {
         return (List<User>)  userRepo.findAll(Sort.by("firstName").ascending());
 
     }
+
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
+    }
     public User get(Integer id) {
             return userRepo.findById(id).get();
     }
-//    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
-//        helper.listEntities(pageNum, USERS_PER_PAGE, userRepo);
-//    }
 
     public List<Role> listRoles() {
         return (List<Role>) roleRepo.findAll();
     }
 
-    public void save(User user) {
-        userRepo.save(user);
+    public User save(User user) {
+        return userRepo.save(user);
     }
 
     public boolean isEmailUnique(Integer id, String email) {

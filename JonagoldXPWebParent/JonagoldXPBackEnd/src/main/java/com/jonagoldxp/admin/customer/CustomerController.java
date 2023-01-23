@@ -1,5 +1,7 @@
 package com.jonagoldxp.admin.customer;
 
+import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
+import com.jonagoldxp.admin.paging.PagingAndSortingParam;
 import com.jonagoldxp.common.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +15,22 @@ import java.util.List;
 
 @Controller
 public class CustomerController {
-
+    private String defaultRedirectURL = "redirect:/customers/page/1?sortField=firstName&sortDir=asc";
     @Autowired
     private CustomerService service;
 
     @GetMapping("/customers")
-    public String listAll(Model model) {
-        List<Customer> listCustomers = service.listAll();
-        model.addAttribute("listCustomers", listCustomers);
+    public String listFirstPage(Model model) {
+        return defaultRedirectURL;
+    }
+
+    @GetMapping("/customers/page/{pageNum}")
+    public String listByPage(
+            @PagingAndSortingParam(listName = "listCustomers", moduleURL = "/customers") PagingAndSortingHelper helper,
+            @PathVariable(name = "pageNum") int pageNum) {
+
+        service.listByPage(pageNum, helper);
+
         return "customers/customers";
     }
 

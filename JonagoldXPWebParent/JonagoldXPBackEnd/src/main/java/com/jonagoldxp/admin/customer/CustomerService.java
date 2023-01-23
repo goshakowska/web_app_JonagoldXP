@@ -1,5 +1,6 @@
 package com.jonagoldxp.admin.customer;
 
+import com.jonagoldxp.admin.paging.PagingAndSortingHelper;
 import com.jonagoldxp.common.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -12,6 +13,7 @@ import java.util.List;
 @Service
 @Transactional
 public class CustomerService {
+    public static final int CUSTOMERS_PER_PAGE = 4;
 
     @Autowired
     private CustomerRepository customerRepo;
@@ -26,7 +28,10 @@ public class CustomerService {
 
     public List<Customer> listAll() {
         return (List<Customer>)  customerRepo.findAll(Sort.by("firstName").ascending());
+    }
 
+    public void listByPage(int pageNum, PagingAndSortingHelper helper) {
+        helper.listEntities(pageNum, CUSTOMERS_PER_PAGE, customerRepo);
     }
 
     public boolean isEmailUnique(Integer id, String email) {
