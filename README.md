@@ -26,7 +26,7 @@ Jako zespół niemalże jednogłośnie zdecydowaliśmy, że aplikację webową w
 
 Backend:
  - Java (Spring),
- - Baza danych - Oracle Database
+ - Baza danych - MySQL
 
 Frontend:
  - HTML,
